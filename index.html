@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG-OS — Shreyansh Gupta</title>
+<meta name="description" content="Shreyansh Gupta — Data Science student. Portfolio of projects, skills, and career journey, presented as an interactive operating system.">
+<meta name="author" content="Shreyansh Gupta">
+<meta name="robots" content="index, follow">
+<!-- TODO: replace https://sg-os.example.com/ below with your real deployed domain once hosted -->
+<link rel="canonical" href="https://sg-os.example.com/">
+<meta name="theme-color" content="#39FF88">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SG-OS">
+<meta property="og:title" content="SG-OS — Shreyansh Gupta">
+<meta property="og:description" content="A portfolio built as an operating system — window manager, live AI assistant, and interactive project demos.">
+<meta property="og:url" content="https://sg-os.example.com/">
+<meta property="og:image" content="https://sg-os.example.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SG-OS — Shreyansh Gupta">
+<meta name="twitter:description" content="A portfolio built as an operating system — window manager, live AI assistant, and interactive project demos.">
+<meta name="twitter:image" content="https://sg-os.example.com/og-image.png">
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2216%22 fill=%22%2305070A%22/><text x=%2250%22 y=%2263%22 font-size=%2240%22 font-family=%22monospace%22 font-weight=%22bold%22 text-anchor=%22middle%22 fill=%22%2339FF88%22>SG</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- ===================== BOOT SCREEN ===================== -->
+<div id="boot-screen" aria-hidden="true">
+  <canvas id="boot-ambient-canvas" class="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="boot-log" id="boot-log"></div>
+  <button id="skip-boot" class="skip-boot">skip boot →</button>
+</div>
+
+<!-- ===================== MISSION BRIEF ===================== -->
+<div id="mission-brief" class="mission-brief" aria-hidden="true">
+  <div class="mission-card">
+    <p class="mono-label">incoming_transmission</p>
+    <div class="mission-row"><span class="mission-label">Mission ID</span><span class="mission-value">SG-2028</span></div>
+    <div class="mission-row"><span class="mission-label">Candidate</span><span class="mission-value">Shreyansh Gupta</span></div>
+    <div class="mission-row"><span class="mission-label">Est. Time to Explore</span><span class="mission-value">10 Minutes</span></div>
+    <div class="mission-modules">
+      <span class="mission-label">Available Modules</span>
+      <ul class="mission-module-list">
+        <li>✓ About</li>
+        <li>✓ Skills</li>
+        <li>✓ Education</li>
+        <li>✓ Certifications</li>
+        <li>✓ Projects</li>
+        <li>✓ Analytics</li>
+        <li>✓ Assistant</li>
+        <li>✓ Knowledge Graph</li>
+        <li>✓ Vault</li>
+        <li>✓ Research Lab</li>
+        <li>✓ Sticky Notes</li>
+        <li>✓ Notebook</li>
+        <li>✓ Journey</li>
+        <li>✓ Contact</li>
+      </ul>
+    </div>
+    <div class="mission-actions">
+      <button id="initialize-mission" class="btn btn-primary">Initialize Mission →</button>
+      <button id="mission-tour-btn" class="btn btn-ghost">\ud83c\udfaf Recruiter Tour (90s)</button>
+      <button id="skip-mission" class="skip-boot">skip to classic site →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DESKTOP ===================== -->
+<div id="desktop" class="desktop" aria-hidden="true">
+  <canvas id="desktop-ambient-canvas" class="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="desktop-icons" id="desktop-icons"><!-- filled by JS --></div>
+
+  <div class="desktop-widgets" id="desktop-widgets">
+    <div class="widget widget-clock">
+      <div class="widget-time" id="widget-clock-time">00:00:00</div>
+      <div class="widget-date" id="widget-clock-date">—</div>
+    </div>
+    <div class="widget widget-status">
+      <div class="widget-status-row"><span class="status-dot"></span> Open to Internships</div>
+      <div class="widget-status-row">Focus: Data Analytics · ML · Power BI</div>
+      <div class="widget-status-row">Building: SG-OS v4.0</div>
+    </div>
+    <div class="widget widget-calendar" id="widget-calendar"><!-- filled by JS from real Timeline/Education data --></div>
+  </div>
+
+  <div class="windows-layer" id="windows-layer"></div>
+
+  <div class="start-menu" id="start-menu" aria-hidden="true"></div>
+  <div class="dock">
+    <button id="start-btn" class="dock-btn start-btn">☰ Start</button>
+    <span class="dock-logo">SG-OS<span class="cursor-blink">_</span></span>
+    <div class="taskbar-windows" id="taskbar-windows"><!-- filled by JS --></div>
+    <span class="dock-clock" id="dock-clock"><span id="dock-clock-date">--- --</span><span class="dock-clock-sep">&middot;</span><span id="dock-clock-time">00:00:00</span></span>
+    <div class="system-tray" id="system-tray">
+      <button id="theme-toggle" class="tray-icon" title="Toggle Theme">◐</button>
+      <span class="tray-icon" title="System Status">●</span>
+    </div>
+    <div class="dock-actions">
+      <button id="palette-trigger" class="dock-btn" title="Command Palette">⌘K Search</button>
+      <button id="exit-desktop" class="dock-btn">Exit to Classic Site</button>
+    </div>
+  </div>
+
+  <div class="tour-bar" id="tour-bar" hidden aria-live="polite">
+    <div class="tour-bar-content">
+      <span class="tour-step-count" id="tour-step-count">1/5</span>
+      <div class="tour-text">
+        <strong id="tour-step-title"></strong>
+        <p id="tour-step-desc"></p>
+      </div>
+    </div>
+    <div class="tour-bar-actions">
+      <button class="btn btn-ghost" id="tour-skip">Skip Tour</button>
+      <button class="btn btn-primary" id="tour-next">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONTEXT MENU ===================== -->
+<div id="context-menu" class="context-menu" aria-hidden="true"></div>
+
+<!-- ===================== COMMAND PALETTE ===================== -->
+<div id="command-palette" class="command-palette" aria-hidden="true">
+  <div class="palette-box">
+    <input type="text" id="palette-input" class="palette-input" placeholder="Type a command… (e.g. 'projects', 'contact')" autocomplete="off">
+    <ul class="palette-list" id="palette-list"></ul>
+    <div class="palette-hint">↑↓ navigate · ↵ select · esc close</div>
+  </div>
+</div>
+
+<!-- ===================== SYSTEM BAR (fixed nav) ===================== -->
+<header id="system-bar" class="system-bar">
+  <div class="system-bar-inner">
+    <a href="#home" class="sysbar-logo">SG-OS<span class="cursor-blink">_</span></a>
+    <nav class="sysbar-nav" id="sysbar-nav">
+      <a href="#about">~/about</a>
+      <a href="#skills">~/skills</a>
+      <a href="#education">~/education</a>
+      <a href="#certifications">~/certs</a>
+      <a href="#projects">~/projects</a>
+      <a href="#journey">~/journey</a>
+      <a href="#contact">~/contact</a>
+    </nav>
+    <div class="sysbar-status">
+      <button id="enter-desktop-btn" class="dock-btn-inline">⊞ Desktop Mode</button>
+      <button class="dock-btn-inline palette-trigger-inline" title="Command Palette (Ctrl+K)">⌘K</button>
+      <span class="status-dot"></span>
+      <span class="status-text">ONLINE</span>
+    </div>
+  </div>
+  <div class="sysbar-progress"><div class="sysbar-progress-fill" id="progress-fill"></div></div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main id="main-content">
+
+  <!-- ===================== HERO ===================== -->
+  <section id="home" class="section hero">
+    <div class="crt-overlay" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="mono-label reveal">system.identity()</p>
+        <h1 class="hero-name reveal">
+          <span class="prompt-line">$ whoami</span>
+          Shreyansh Gupta
+        </h1>
+        <p class="hero-tagline reveal">Turning data into insights, curiosity into solutions, and ideas into impactful experiences.</p>
+        <div class="hero-meta reveal">
+          <span class="chip">B.Tech CSE · Data Science</span>
+          <span class="chip">Galgotias College of Engineering &amp; Technology</span>
+          <span class="chip chip-accent">Open to Internships</span>
+        </div>
+        <div class="hero-actions reveal">
+          <a href="#projects" class="btn btn-primary">./view-projects</a>
+          <a href="mailto:shreyanshg232@gmail.com" class="btn btn-ghost">./contact-me</a>
+        </div>
+      </div>
+      <div class="hero-terminal reveal">
+        <div class="window">
+          <div class="window-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="window-title">status.sh</span>
+          </div>
+          <div class="window-body mono" id="hero-terminal-body">
+            <!-- typed via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="section">
+    <div class="container">
+      <p class="mono-label reveal">01 / about.md</p>
+      <h2 class="section-title reveal">cat about.md</h2>
+      <div class="about-grid">
+        <div class="window reveal">
+          <div class="window-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="window-title">about.md</span>
+          </div>
+          <div class="window-body">
+            <p>I'm a third-year B.Tech student in Computer Science Engineering, specializing in Data Science, at Galgotias College of Engineering &amp; Technology, Greater Noida.</p>
+            <p>I enjoy solving problems using data and continuously learning new technologies. My goal is to become a Data Analyst and grow into a Data Scientist — because understanding the story behind the data matters as much as building the model.</p>
+            <p>Rather than collecting certificates, I focus on building projects that reflect real learning and technical growth. Currently strengthening my foundations in Python, SQL, machine learning, Power BI, and software development.</p>
+          </div>
+        </div>
+        <div class="about-side reveal">
+          <div class="stat-card">
+            <span class="stat-label">career_objective</span>
+            <p>Build intelligent, data-driven solutions that create measurable impact — combining analytical thinking, programming, and visualization to turn raw data into meaningful business insight.</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">expected_graduation</span>
+            <p>2028</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CURRENT FOCUS (ps aux) ===================== -->
+  <section id="focus" class="section section-alt">
+    <div class="container">
+      <p class="mono-label reveal">02 / processes</p>
+      <h2 class="section-title reveal">ps aux --user=shreyansh</h2>
+      <div class="window reveal">
+        <div class="window-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+          <span class="window-title">processes — running</span>
+        </div>
+        <div class="window-body">
+          <table class="process-table">
+            <thead>
+              <tr><th>PID</th><th>PROCESS</th><th>STATUS</th></tr>
+            </thead>
+            <tbody id="process-table-body">
+              <!-- filled by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section id="skills" class="section">
+    <div class="container">
+      <p class="mono-label reveal">03 / installed_packages</p>
+      <h2 class="section-title reveal">pkg list --all</h2>
+      <div class="skills-grid" id="skills-grid">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EDUCATION ===================== -->
+  <section id="education" class="section section-alt">
+    <div class="container">
+      <p class="mono-label reveal">04 / education.json</p>
+      <h2 class="section-title reveal">cat education.json</h2>
+      <div class="window reveal edu-window">
+        <div class="window-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+          <span class="window-title">education.json</span>
+        </div>
+        <div class="window-body">
+          <div class="spec-grid" id="education-spec">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CERTIFICATIONS ===================== -->
+  <section id="certifications" class="section">
+    <div class="container">
+      <p class="mono-label reveal">05 / achievements</p>
+      <h2 class="section-title reveal">ls ~/certifications</h2>
+      <p class="section-sub reveal">Updated as I actually complete them — nothing backdated.</p>
+      <div class="cert-grid" id="cert-grid">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects" class="section section-alt">
+    <div class="container">
+      <p class="mono-label reveal">06 / ls ~/projects</p>
+      <h2 class="section-title reveal">Programs I've shipped</h2>
+      <p class="section-sub reveal">Click a window to expand — each one solves a real problem, end to end.</p>
+      <div class="projects-grid" id="projects-grid">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JOURNEY / EDUCATION + CERTS ===================== -->
+  <section id="journey" class="section">
+    <div class="container">
+      <p class="mono-label reveal">07 / boot_history</p>
+      <h2 class="section-title reveal">System journey</h2>
+      <div class="timeline" id="timeline">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OPEN TO / EXPERIENCE ===================== -->
+  <section id="open-to" class="section section-alt">
+    <div class="container">
+      <p class="mono-label reveal">08 / system.open()</p>
+      <h2 class="section-title reveal">Currently accepting connections</h2>
+      <div class="open-grid reveal">
+        <div class="open-chip">Data Analyst Internship</div>
+        <div class="open-chip">Data Science Internship</div>
+        <div class="open-chip">Business Analyst Internship</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <p class="mono-label reveal">09 / connect.sh</p>
+      <h2 class="section-title reveal">./connect --with=shreyansh</h2>
+      <div class="window reveal contact-window">
+        <div class="window-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+          <span class="window-title">connect.sh</span>
+        </div>
+        <div class="window-body mono">
+          <p class="terminal-line"><span class="prompt">$</span> ./send_message --to shreyansh</p>
+          <form id="contact-form" class="contact-form">
+            <label for="cf-name">name</label>
+            <input type="text" id="cf-name" name="name" placeholder="your_name" required>
+            <label for="cf-email">email</label>
+            <input type="email" id="cf-email" name="email" placeholder="your_email@domain.com" required>
+            <label for="cf-message">message</label>
+            <textarea id="cf-message" name="message" placeholder="type your message..." rows="4" required></textarea>
+            <button type="submit" class="btn btn-primary">./send</button>
+          </form>
+          <p class="terminal-line output-line" id="form-output"></p>
+        </div>
+      </div>
+      <div class="contact-links reveal">
+        <a href="https://github.com/Shreyanshg11" target="_blank" rel="noopener" class="link-card">
+          <span class="link-label">github</span><span class="link-value">Shreyanshg11</span>
+        </a>
+        <a href="mailto:shreyanshg232@gmail.com" class="link-card">
+          <span class="link-label">email</span><span class="link-value">shreyanshg232@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/shreyansh-gupta-928850324" target="_blank" rel="noopener" class="link-card">
+          <span class="link-label">linkedin</span><span class="link-value">shreyansh-gupta</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>SG-OS v2.0 — © 2026 Shreyansh Gupta</span>
+      <span class="footer-status"><span class="status-dot"></span> system healthy</span>
+    </div>
+  </footer>
+
+</main>
+
+<script src="js/script.js"></script>
+</body>
+</html>
