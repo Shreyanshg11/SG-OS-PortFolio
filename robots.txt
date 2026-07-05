@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sg-os.example.com/sitemap.xml
+Sitemap: https://shreyanshg11.github.io/SG-OS-PortFolio/sitemap.xml
